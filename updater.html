@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CA Updater</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.box{background:#1e293b;border-radius:16px;padding:36px 40px;max-width:560px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.5)}
+h1{font-size:22px;margin-bottom:6px}
+.sub{color:#64748b;font-size:13px;margin-bottom:24px;line-height:1.7}
+
+.field{margin-bottom:18px}
+.field-label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:block}
+.ca-wrap{display:flex;gap:8px}
+.ca-input{flex:1;background:#0b1628;border:2px solid #2d3f55;border-radius:10px;padding:13px 14px;color:#e2e8f0;font-family:monospace;font-size:14px;font-weight:700;outline:none;transition:.2s}
+.ca-input:focus{border-color:#6366f1}
+.ca-input::placeholder{color:#334155;font-weight:400;font-size:13px;font-family:'Segoe UI',Arial,sans-serif}
+.fetch-btn{background:#6366f1;color:#fff;border:none;padding:13px 22px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700;white-space:nowrap;transition:.2s}
+.fetch-btn:hover{background:#4f46e5}
+.fetch-btn:disabled{background:#334155;cursor:not-allowed}
+
+.token-preview{display:none;align-items:center;gap:16px;background:#0b1628;border-radius:10px;padding:14px 16px;margin-bottom:18px;border:1px solid #2d3f55}
+.token-preview.show{display:flex}
+.tp-logo{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #2d3f55;background:#1e293b;flex-shrink:0}
+.tp-info h3{font-size:16px;font-weight:800;margin-bottom:2px}
+.tp-info p{color:#64748b;font-size:13px}
+.tp-ca{font-family:monospace;font-size:11px;color:#475569;word-break:break-all;margin-top:4px}
+
+.folder-btn{width:100%;background:#0b1628;border:2px dashed #2d3f55;border-radius:14px;padding:30px 20px;text-align:center;cursor:pointer;transition:.2s;user-select:none;margin-bottom:14px}
+.folder-btn:hover{border-color:#6366f1;background:rgba(99,102,241,.07)}
+.folder-btn.done{border-color:#10b981;border-style:solid;background:rgba(16,185,129,.05)}
+.folder-btn.loading{border-color:#6366f1;border-style:solid;background:rgba(99,102,241,.05)}
+.f-icon{font-size:36px;margin-bottom:8px;display:block}
+.f-label{font-size:15px;font-weight:600;color:#94a3b8;margin-bottom:4px}
+.f-sub{font-size:12px;color:#475569}
+
+.status-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.sitem{background:#0b1628;border-radius:8px;padding:10px 12px;border:1px solid #1e2d40;display:flex;align-items:flex-start;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;background:#334155;flex-shrink:0;margin-top:3px;transition:.3s}
+.sitem.ok .dot{background:#10b981}
+.sitem.err .dot{background:#ef4444}
+.slbl{font-size:11px;color:#475569}
+.sitem.ok .slbl{color:#94a3b8}
+.sval{font-size:10px;color:#34d399;margin-top:2px;display:none;word-break:break-all}
+.sitem.ok .sval,.sitem.err .sval{display:block}
+.sitem.err .sval{color:#f87171}
+
+.apply-btn{display:none;width:100%;margin-top:14px;background:#10b981;color:#fff;border:none;padding:15px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
+.apply-btn:hover{background:#059669}
+.apply-btn.show{display:block}
+.apply-btn:disabled{background:#334155;cursor:not-allowed}
+
+.save-panel{display:none;margin-top:14px;background:#0b1628;border:2px solid #2d3f55;border-radius:10px;padding:16px 18px}
+.save-panel.show{display:block}
+.save-panel p{font-size:13px;color:#64748b;margin-bottom:10px;line-height:1.6}
+.save-btn{width:100%;background:#6366f1;color:#fff;border:none;padding:13px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
+.save-btn:hover{background:#4f46e5}
+.save-btn:disabled{background:#334155;cursor:not-allowed}
+
+.msg{border-radius:8px;padding:11px 14px;font-size:13px;margin-top:10px;display:none;line-height:1.6}
+.msg.ok {background:rgba(16,185,129,.1);color:#34d399;display:block;border:1px solid rgba(16,185,129,.2)}
+.msg.err{background:rgba(239,68,68,.1);color:#f87171;display:block;border:1px solid rgba(239,68,68,.2)}
+.msg.inf{background:rgba(99,102,241,.1);color:#a5b4fc;display:block;border:1px solid rgba(99,102,241,.2)}
+
+.steps{margin-top:20px;background:#0b1628;border-radius:10px;padding:14px 18px;font-size:12px;color:#475569;line-height:2.2;border:1px solid #1e2d40}
+.steps b{color:#64748b}
+code{background:#1e293b;padding:1px 6px;border-radius:4px;font-size:11px;color:#94a3b8;border:1px solid #2d3f55}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>🔄 CA Updater</h1>
+  <p class="sub">Paste a Solana contract address — <b>index.html and logo are updated automatically on disk</b>. No download needed.</p>
+
+  <!-- Step 1: Contract Address -->
+  <div class="field">
+    <span class="field-label">Contract Address</span>
+    <div class="ca-wrap">
+      <input class="ca-input" id="caInput" type="text" placeholder="Paste Solana contract address..." maxlength="60">
+      <button class="fetch-btn" id="fetchBtn" onclick="fetchToken()">Fetch</button>
+    </div>
+  </div>
+
+  <!-- Token preview card -->
+  <div class="token-preview" id="tokenPreview">
+    <img class="tp-logo" id="previewLogo" src="" alt="">
+    <div class="tp-info">
+      <h3 id="previewName">—</h3>
+      <p id="previewSymbol">—</p>
+      <div class="tp-ca" id="previewCA">—</div>
+    </div>
+  </div>
+
+  <!-- Step 2: Pick folder -->
+  <input type="file" id="folderInput" webkitdirectory style="display:none">
+  <div class="folder-btn" id="folderBtn" onclick="document.getElementById('folderInput').click()">
+    <span class="f-icon" id="fIcon">📁</span>
+    <div class="f-label" id="fLabel">Click to Select Your Website Folder</div>
+    <div class="f-sub" id="fSub">Finds index.html — updates CA, DexScreener link & logo</div>
+  </div>
+
+  <!-- Status indicators -->
+  <div class="status-row">
+    <div class="sitem" id="si-html"><div class="dot"></div><div><div class="slbl">index.html</div><div class="sval" id="sv-html"></div></div></div>
+    <div class="sitem" id="si-logo"><div class="dot"></div><div><div class="slbl">Logo</div><div class="sval" id="sv-logo"></div></div></div>
+    <div class="sitem" id="si-save"><div class="dot"></div><div><div class="slbl">Saved</div><div class="sval" id="sv-save"></div></div></div>
+  </div>
+
+  <!-- Apply button -->
+  <button class="apply-btn" id="applyBtn" onclick="applyAndSave()">✅ Apply & Save to Folder</button>
+
+  <!-- Save panel for File System Access API -->
+  <div class="save-panel" id="savePanel">
+    <p id="savePanelMsg">Changes are ready. Click below to save directly to your folder.</p>
+    <button class="save-btn" id="saveBtn" onclick="saveToFolder()">💾 Save to Folder</button>
+  </div>
+
+  <div class="msg" id="msg"></div>
+
+  <div class="steps">
+    <b>How it works:</b><br>
+    1. Paste contract address & click <b>Fetch</b> — logo is fetched from DexScreener<br>
+    2. Click the folder button — select your website folder<br>
+    3. Click <b>Apply & Save</b> — grant permission once<br>
+    4. <code>index.html</code> + <code>token_logo.png</code> saved directly ✅<br>
+    5. Upload to Vercel or open <code>index.html</code> from file
+  </div>
+</div>
+
+<script>
+// ── State ──
+var loadedHtml = null;
+var patchedHtml = null;
+var tokenData = null;
+var logoBlob = null;
+var logoUrl = '';
+var folderName = null;
+
+// ── CSS + HTML to inject for circular floating logo ──
+var LOGO_CSS = '\n        @keyframes float {\n            0%, 100% { transform: translateY(0px) rotate(0deg); }\n            25% { transform: translateY(-12px) rotate(1.5deg); }\n            50% { transform: translateY(-6px) rotate(0deg); }\n            75% { transform: translateY(-14px) rotate(-1.5deg); }\n        }\n\n        .token-logo-frame {\n            width: 350px;\n            height: 350px;\n            border-radius: 50%;\n            overflow: hidden;\n            border: 3px solid rgba(255, 255, 255, 0.25);\n            box-shadow: 0 0 60px rgba(255, 200, 0, 0.35), 0 0 120px rgba(255, 150, 0, 0.15), inset 0 0 30px rgba(0,0,0,0.3);\n            animation: float 4s ease-in-out infinite;\n        }\n\n        .token-logo-frame img {\n            width: 100%;\n            height: 100%;\n            object-fit: cover;\n            display: block;\n        }\n\n        .logo-center-wrap {\n            position: fixed;\n            top: 70%;\n            left: 50%;\n            transform: translate(-50%, -50%);\n            z-index: 30;\n        }';
+
+// ── Step 1: Fetch token from DexScreener ──
+async function fetchToken() {
+  var ca = document.getElementById('caInput').value.trim();
+  if (!ca) return setMsg('err', 'Please paste a contract address.');
+
+  var btn = document.getElementById('fetchBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳';
+  setMsg('', '');
+
+  try {
+    var res = await fetch('https://api.dexscreener.com/tokens/v1/solana/' + ca);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var pairs = await res.json();
+    if (!Array.isArray(pairs) || pairs.length === 0) throw new Error('No pairs found on DexScreener for this address.');
+
+    tokenData = pairs[0];
+    var name = (tokenData.baseToken && tokenData.baseToken.name) || 'Unknown';
+    var symbol = (tokenData.baseToken && tokenData.baseToken.symbol) || '???';
+    logoUrl = (tokenData.info && tokenData.info.imageUrl) || '';
+
+    // Show preview
+    document.getElementById('previewName').textContent = name;
+    document.getElementById('previewSymbol').textContent = '$' + symbol;
+    document.getElementById('previewCA').textContent = ca;
+    document.getElementById('tokenPreview').className = 'token-preview show';
+
+    // Download logo blob (with CORS proxy fallback)
+    if (logoUrl) {
+      var fetchUrls = [
+        'https://wsrv.nl/?url=' + encodeURIComponent(logoUrl),
+        'https://api.allorigins.win/raw?url=' + encodeURIComponent(logoUrl),
+        'https://corsproxy.io/?' + encodeURIComponent(logoUrl),
+        logoUrl
+      ];
+      var fetched = false;
+      for (var i = 0; i < fetchUrls.length && !fetched; i++) {
+        try {
+          var logoRes = await fetch(fetchUrls[i]);
+          if (!logoRes.ok) throw new Error('HTTP ' + logoRes.status);
+          logoBlob = await logoRes.blob();
+          if (logoBlob.size < 100) throw new Error('Too small');
+          document.getElementById('previewLogo').src = URL.createObjectURL(logoBlob);
+          setStatus('si-logo', 'ok', 'Fetched ✓');
+          fetched = true;
+        } catch (e) {
+          logoBlob = null;
+        }
+      }
+      if (!fetched) {
+        // Last resort: load via img tag (can preview but not save as blob)
+        document.getElementById('previewLogo').src = logoUrl;
+        setStatus('si-logo', 'err', 'Preview only — save logo manually');
+        setMsg('inf', 'Logo preview loaded but cannot auto-save due to CORS. Right-click the logo preview above and "Save image as" → token_logo.png');
+      }
+    } else {
+      setStatus('si-logo', 'err', 'No logo on DexScreener');
+    }
+
+    setMsg('ok', '✅ Found: ' + name + ' ($' + symbol + ')');
+    checkReady();
+  } catch (err) {
+    setMsg('err', '❌ ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Fetch';
+  }
+}
+
+// ── Step 2: Folder input (webkitdirectory) ──
+document.getElementById('folderInput').addEventListener('change', function() {
+  var files = this.files;
+  if (!files || !files.length) return;
+
+  setStatus('si-html','','');
+  setStatus('si-save','','');
+  setMsg('','');
+  loadedHtml = null;
+  patchedHtml = null;
+  document.getElementById('savePanel').className = 'save-panel';
+  document.getElementById('applyBtn').className = 'apply-btn';
+
+  document.getElementById('fIcon').textContent = '⏳';
+  document.getElementById('fLabel').textContent = 'Reading files...';
+  document.getElementById('fSub').textContent = '';
+  document.getElementById('folderBtn').className = 'folder-btn loading';
+
+  var htmlFile = null;
+  for (var i = 0; i < files.length; i++) {
+    var f = files[i];
+    var parts = (f.webkitRelativePath || f.name).split('/');
+    if (parts.length > 2) continue; // Only top-level files
+    if (f.name.toLowerCase() === 'index.html') {
+      htmlFile = f;
+      folderName = parts[0];
+      break;
+    }
+  }
+
+  if (!htmlFile) {
+    document.getElementById('fIcon').textContent = '❌';
+    document.getElementById('fLabel').textContent = 'index.html not found';
+    document.getElementById('fSub').textContent = 'Select the correct website folder';
+    document.getElementById('folderBtn').className = 'folder-btn';
+    setMsg('err', 'No index.html found. Make sure you selected the right folder.');
+    return;
+  }
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    loadedHtml = e.target.result;
+    setStatus('si-html', 'ok', htmlFile.name);
+    document.getElementById('fIcon').textContent = '📂';
+    document.getElementById('fLabel').textContent = 'Folder: ' + (folderName || 'selected');
+    document.getElementById('fSub').textContent = files.length + ' files scanned';
+    document.getElementById('folderBtn').className = 'folder-btn done';
+    checkReady();
+  };
+  reader.readAsText(htmlFile);
+});
+
+function checkReady() {
+  if (loadedHtml && tokenData) {
+    document.getElementById('applyBtn').className = 'apply-btn show';
+  }
+}
+
+// ── Patch HTML ──
+function patchHtml(rawHtml, newCA, dexUrl) {
+  var html = rawHtml;
+
+  // 1. Replace CA text in the font-mono span
+  html = html.replace(
+    /(<span[^>]*class="[^"]*font-mono[^"]*"[^>]*>)[A-Za-z0-9]{30,50}(<\/span>)/,
+    '$1' + newCA + '$2'
+  );
+
+  // 2. Replace DexScreener link
+  html = html.replace(
+    /(href=")(https:\/\/dexscreener\.com\/solana\/[A-Za-z0-9]+)(")/i,
+    '$1' + dexUrl + '$3'
+  );
+
+  // 3. Replace the title and header with actual name and symbol
+  html = html.replace(
+    /(<title>)[^<]*(<\/title>)/i,
+    '$1$' + (tokenData.baseToken?.name || 'DISTORTED').toUpperCase() + '$2'
+  );
+  html = html.replace(
+    /(<span class="text-white">)[^<]*(<\/span>)/i,
+    '$1$' + (tokenData.baseToken?.symbol || 'DISTORTED').toUpperCase() + '$2'
+  );
+
+  html = html.replace(
+    /Eligible\s+users\s+are\s+invited\s+to\s+take\s+part\s+in\s+the\s+distribution\s+of\s+.*?\s+tokens\./i,
+    'Eligible users are invited to take part in the distribution of $' + (tokenData.baseToken?.name || 'DISTORTED').toUpperCase() + ' tokens.'
+  );
+
+  // 4. Update favicon
+  html = html.replace(
+    /(<link\s+rel="icon"\s+href=")[^"]*(")/i,
+    '$1token_logo.png$2'
+  );
+
+  // 5. Update Twitter URL
+  var newTwitterUrl = 'https://x.com/witloofsol';
+  if (tokenData.info && tokenData.info.socials && tokenData.info.socials.length > 0) {
+      var twitterSocial = tokenData.info.socials.find(function(s) { return s.type === 'twitter'; });
+      if (twitterSocial && twitterSocial.url) {
+          newTwitterUrl = twitterSocial.url;
+      }
+  }
+  
+  // Note: we only replace the main social link and not the website creator link at the bottom.
+  // We use the SVG icon as an anchor to make sure we replace the right one.
+  html = html.replace(
+    /(<a href=")(https:\/\/x\.com\/[^"]+)("[^>]*>\s*<div[^>]*>\s*<\/div><svg viewBox="0 0 24 24")/i,
+    '$1' + newTwitterUrl + '$3'
+  );
+
+  // 6. Inject floating animation CSS (if not already present)
+  if (html.indexOf('.token-logo-frame') === -1) {
+    html = html.replace(
+      /(@property\s+--angle\s*\{[^}]+\}\s*)<\/style>/,
+      '$1\n' + LOGO_CSS + '\n    </style>'
+    );
+  }
+
+  // 5. Replace the main image with circular frame
+  var buttonImgRegex = /(<button[^>]*class="[^"]*cursor-pointer[^"]*"[^>]*>)\s*(?:<div class="token-logo-frame">\s*<img[^>]*>\s*<\/div>|<img[^>]*>)\s*(<\/button>)/;
+  html = html.replace(buttonImgRegex,
+    '$1\n                <div class="token-logo-frame">\n                    <img alt="Token logo" decoding="async" src="token_logo.png">\n                </div>\n            $2'
+  );
+
+  return html;
+}
+
+// ── Apply & save ──
+function applyAndSave() {
+  if (!loadedHtml || !tokenData) return;
+
+  var ca = document.getElementById('caInput').value.trim();
+  var dexUrl = tokenData.url || ('https://dexscreener.com/solana/' + (tokenData.pairAddress || ''));
+
+  patchedHtml = patchHtml(loadedHtml, ca, dexUrl);
+
+  // Use File System Access API (Chrome/Edge) for direct save
+  if ('showDirectoryPicker' in window) {
+    document.getElementById('savePanelMsg').textContent =
+      'Ready to save! Click below — browser will ask to confirm write access to your folder.';
+    document.getElementById('savePanel').className = 'save-panel show';
+    setMsg('inf', 'Almost done! Click the Save button below.');
+  } else {
+    // Fallback: download both files
+    downloadBlob(new Blob([patchedHtml], {type:'text/html'}), 'index.html');
+    if (logoBlob) downloadBlob(logoBlob, 'token_logo.png');
+    setStatus('si-save', 'ok', 'Downloaded');
+    setMsg('ok', 'Files downloaded. Replace them in your folder. (Use Chrome/Edge for direct save.)');
+  }
+}
+
+// ── Save via File System Access API ──
+async function saveToFolder() {
+  if (!patchedHtml) return;
+  var btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Saving...';
+
+  try {
+    var dir = await window.showDirectoryPicker({ mode: 'readwrite' });
+
+    // Save index.html
+    var htmlHandle = await dir.getFileHandle('index.html', { create: true });
+    var htmlWritable = await htmlHandle.createWritable();
+    await htmlWritable.write(patchedHtml);
+    await htmlWritable.close();
+
+    // Save logo image
+    if (logoBlob) {
+      var logoHandle = await dir.getFileHandle('token_logo.png', { create: true });
+      var logoWritable = await logoHandle.createWritable();
+      await logoWritable.write(logoBlob);
+      await logoWritable.close();
+    }
+
+    setStatus('si-save', 'ok', 'Saved ✓');
+    document.getElementById('savePanel').className = 'save-panel';
+    var saved = 'index.html' + (logoBlob ? ' + token_logo.png' : '');
+    setMsg('ok', '✅ ' + saved + ' saved directly to your folder! Upload to Vercel or open from file.');
+    btn.disabled = false;
+    btn.textContent = '💾 Save to Folder';
+  } catch (e) {
+    if (e.name === 'AbortError') {
+      setMsg('inf', 'Cancelled. Click save again when ready.');
+    } else {
+      setMsg('err', 'Save failed: ' + e.message);
+    }
+    btn.disabled = false;
+    btn.textContent = '💾 Save to Folder';
+  }
+}
+
+function downloadBlob(blob, filename) {
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+}
+
+// ── Helpers ──
+function setStatus(id, type, text) {
+  var el = document.getElementById(id);
+  el.className = 'sitem' + (type ? ' ' + type : '');
+  var sv = el.querySelector('.sval');
+  if (sv) sv.textContent = text;
+}
+function setMsg(type, txt) {
+  var el = document.getElementById('msg');
+  if (!type) { el.className = 'msg'; el.textContent = ''; return; }
+  el.className = 'msg ' + type;
+  el.textContent = txt;
+}
+
+// Enter key triggers fetch
+document.getElementById('caInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') fetchToken();
+});
+</script>
+</body>
+</html>
