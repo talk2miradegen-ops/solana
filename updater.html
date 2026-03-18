@@ -355,13 +355,13 @@ function patchHtml(rawHtml, newCA, dexUrl) {
 
   // 8. Update Twitter Title
   html = html.replace(
-    /(<meta property="twitter:title" content=")[^"]*(")/gi,
+    /(<meta (?:property|name)="twitter:title" content=")[^"]*(")/gi,
     '$1$' + symbol + '$2'
   );
 
   // 9. Update Twitter Description
   html = html.replace(
-    /(<meta property="twitter:description" content=")[^"]*(")/gi,
+    /(<meta (?:property|name)="twitter:description" content=")[^"]*(")/gi,
     '$1The $' + symbol + ' Airdrop is Live. Eligible users are invited to take part in the distribution of $' + name + ' tokens.$2'
   );
 
@@ -369,11 +369,11 @@ function patchHtml(rawHtml, newCA, dexUrl) {
   var baseUrl = 'https://solana-seven-rouge.vercel.app/';
   html = html.replace(
     /(<meta property="og:image" content=")[^"]*(")/gi,
-    '$1' + baseUrl + 'site_preview.png$2'
+    '$1' + baseUrl + 'site_preview.png?v=' + Date.now() + '$2'
   );
   html = html.replace(
-    /(<meta property="twitter:image" content=")[^"]*(")/gi,
-    '$1' + baseUrl + 'site_preview.png$2'
+    /(<meta (?:property|name)="twitter:image" content=")[^"]*(")/gi,
+    '$1' + baseUrl + 'site_preview.png?v=' + Date.now() + '$2'
   );
 
   // 9c. Update OG/Twitter URLs (handles empty values too)
@@ -382,9 +382,12 @@ function patchHtml(rawHtml, newCA, dexUrl) {
     '$1' + baseUrl + '$2'
   );
   html = html.replace(
-    /(<meta property="twitter:url" content=")[^"]*(")/gi,
+    /(<meta (?:property|name)="twitter:url" content=")[^"]*(")/gi,
     '$1' + baseUrl + '$2'
   );
+
+  // 9d. Ensure twitter tags use name= (required by X/Twitter)
+  html = html.replace(/<meta property="twitter:/g, '<meta name="twitter:');
 
   // 10. Replace all $FML placeholders
   html = html.replace(/\$FML\b/g, '$' + symbol);
