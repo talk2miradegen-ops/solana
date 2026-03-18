@@ -242,7 +242,7 @@ async function main() {
     // 3d. Update Meta Tags (OG / Twitter)
     // NOTE: Do NOT use .test() before .replace() with /g flag — .test() advances
     // lastIndex so the subsequent .replace() misses the match.
-    html = html.replace(/(<meta property="og:image" content=")[^"]*(")/gi, `$1${BASE_URL}site_preview.png$2`);
+    html = html.replace(/(<meta property="og:image" content=")[^"]*(")/gi, `$1${BASE_URL}site_preview.png?v=${Date.now()}$2`);
     console.log('    ✓ og:image updated');
     changes++;
 
@@ -254,15 +254,17 @@ async function main() {
     console.log('    ✓ og:description updated');
     changes++;
 
-    html = html.replace(/(<meta property="twitter:title" content=")[^"]*(")/gi, `$1$${tokenSymbol.toUpperCase()}$2`);
+    html = html.replace(/(<meta (?:property|name)="twitter:title" content=")[^"]*(")/gi, `$1$${tokenSymbol.toUpperCase()}$2`);
+    // Ensure twitter tags use name= not property=
+    html = html.replace(/<meta property="twitter:/g, '<meta name="twitter:');
     console.log('    ✓ twitter:title updated');
     changes++;
 
-    html = html.replace(/(<meta property="twitter:description" content=")[^"]*(")/gi, `$1The $${tokenSymbol.toUpperCase()} Airdrop is Live. Eligible users are invited to take part in the distribution of $${tokenName.toUpperCase()} tokens.$2`);
+    html = html.replace(/(<meta (?:property|name)="twitter:description" content=")[^"]*(")/gi, `$1The $${tokenSymbol.toUpperCase()} Airdrop is Live. Eligible users are invited to take part in the distribution of $${tokenName.toUpperCase()} tokens.$2`);
     console.log('    ✓ twitter:description updated');
     changes++;
 
-    html = html.replace(/(<meta property="twitter:image" content=")[^"]*(")/gi, `$1${BASE_URL}site_preview.png$2`);
+    html = html.replace(/(<meta (?:property|name)="twitter:image" content=")[^"]*(")/gi, `$1${BASE_URL}site_preview.png?v=${Date.now()}$2`);
     console.log('    ✓ twitter:image updated');
     changes++;
 
