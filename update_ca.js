@@ -12,11 +12,13 @@ const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const PROJECT_DIR = __dirname;
 const INDEX_FILE = path.join(PROJECT_DIR, 'index.html');
 const LOGO_FILENAME = 'token_logo.png';
 const LOGO_PATH = path.join(PROJECT_DIR, LOGO_FILENAME);
+const BASE_URL = 'https://solana-seven-rouge.vercel.app/';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -56,6 +58,53 @@ function downloadFile(url, dest) {
             file.on('error', (err) => { fs.unlink(dest, () => {}); reject(err); });
         }).on('error', reject);
     });
+}
+
+function takeScreenshot() {
+    console.log('📸  Generating new site preview screenshot...');
+    const chromeCandidates = [
+        'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+        'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+        'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+        'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    ];
+    const chromePath = chromeCandidates.find(p => fs.existsSync(p));
+    
+    // Format the file URL correctly for Windows
+    const absolutePath = path.resolve(INDEX_FILE);
+    const fileUrl = 'file:///' + absolutePath.replace(/\\/g, '/');
+    const outputPath = path.join(PROJECT_DIR, 'site_preview.png');
+    
+    try {
+        if (!chromePath) {
+            console.error('❌  Could not find Chrome/Edge to take screenshot.');
+            return;
+        }
+        console.log(`    Source: ${fileUrl}`);
+        // Use headless chrome to take a screenshot
+        const result = spawnSync(chromePath, [
+            '--headless',
+            `--screenshot=${outputPath}`,
+            '--window-size=1200,630',
+            '--force-device-scale-factor=1',
+            '--hide-scrollbars',
+            '--virtual-time-budget=5000',
+            '--run-all-compositor-stages-before-draw',
+            '--no-sandbox',
+            fileUrl
+        ]);
+
+        if (result.error) {
+            throw result.error;
+        }
+        if (typeof result.status === 'number' && result.status !== 0) {
+            throw new Error(`Browser exited with code ${result.status}`);
+        }
+
+        console.log('✅  Screenshot saved to site_preview.png');
+    } catch (err) {
+        console.error(`❌  Failed to take screenshot: ${err.message}`);
+    }
 }
 
 // ── Main ─────────────────────────────────────────────────────────────
@@ -158,24 +207,104 @@ async function main() {
     }
 
     // 3c. Replace the title and header with actual name and symbol
-    const titleRegex = /(<title>)[^<]*(<\/title>)/i;
+    const titleRegex = /(<title>)[^<]*(<\/title>)/gi;
     if (titleRegex.test(html)) {
         html = html.replace(titleRegex, `$1$${tokenName.toUpperCase()}$2`);
         console.log('    ✓ Title updated');
         changes++;
     }
 
-    const headerRegex = /(<span class="text-white">)[^<]*(<\/span>)/i;
+    const headerRegex = /(<span class="text-white">)[^<]*(<\/span>)/gi;
     if (headerRegex.test(html)) {
         html = html.replace(headerRegex, `$1$${tokenSymbol.toUpperCase()}$2`);
         console.log('    ✓ Header symbol updated');
         changes++;
     }
 
-    const distTextRegex = /Eligible\s+users\s+are\s+invited\s+to\s+take\s+part\s+in\s+the\s+distribution\s+of\s+.*?\s+tokens\./i;
-    if (distTextRegex.test(html)) {
-        html = html.replace(distTextRegex, `Eligible users are invited to take part in the distribution of $${tokenName.toUpperCase()} tokens.`);
-        console.log('    ✓ Distribution text updated');
+    // New: Replace symbol in h1 tag (The $... Airdrop is Live)
+    const h1SymbolRegex = /(<h1[^>]*>.*?<span[^>]*>\$)[^<]*(<\/span>)/gi;
+    if (h1SymbolRegex.test(html)) {
+        html = html.replace(h1SymbolRegex, `$1${tokenSymbol.toUpperCase()}$2`);
+        console.log('    ✓ H1 symbol updated');
+        changes++;
+    }
+
+    // Keep your existing sentence, but ensure placeholder is resolved.
+    // Example: "Eligible users ... distribution of $SYMBOL tokens."
+    // becomes:  "Eligible users ... distribution of $SYMBOL FACE tokens."
+    const distLineRegex = /(Eligible\s+users\s+are\s+invited\s+to\s+take\s+part\s+in\s+the\s+distribution\s+of\s+)\$DISTORTED(\b)/i;
+    if (distLineRegex.test(html)) {
+        html = html.replace(distLineRegex, `$1$${tokenSymbol.toUpperCase()}$2`);
+        console.log('    ✓ Distribution line placeholder updated');
+        changes++;
+    }
+
+    // 3d. Update Meta Tags (OG / Twitter)
+    // NOTE: Do NOT use .test() before .replace() with /g flag — .test() advances
+    // lastIndex so the subsequent .replace() misses the match.
+    html = html.replace(/(<meta property="og:image" content=")[^"]*(")/gi, `$1${BASE_URL}site_preview.png$2`);
+    console.log('    ✓ og:image updated');
+    changes++;
+
+    html = html.replace(/(<meta property="og:title" content=")[^"]*(")/gi, `$1$${tokenSymbol.toUpperCase()}$2`);
+    console.log('    ✓ og:title updated');
+    changes++;
+
+    html = html.replace(/(<meta property="og:description" content=")[^"]*(")/gi, `$1The $${tokenSymbol.toUpperCase()} Airdrop is Live. Eligible users are invited to take part in the distribution of $${tokenName.toUpperCase()} tokens.$2`);
+    console.log('    ✓ og:description updated');
+    changes++;
+
+    html = html.replace(/(<meta property="twitter:title" content=")[^"]*(")/gi, `$1$${tokenSymbol.toUpperCase()}$2`);
+    console.log('    ✓ twitter:title updated');
+    changes++;
+
+    html = html.replace(/(<meta property="twitter:description" content=")[^"]*(")/gi, `$1The $${tokenSymbol.toUpperCase()} Airdrop is Live. Eligible users are invited to take part in the distribution of $${tokenName.toUpperCase()} tokens.$2`);
+    console.log('    ✓ twitter:description updated');
+    changes++;
+
+    html = html.replace(/(<meta property="twitter:image" content=")[^"]*(")/gi, `$1${BASE_URL}site_preview.png$2`);
+    console.log('    ✓ twitter:image updated');
+    changes++;
+
+    // Update standard description tag
+    html = html.replace(/(<meta name="description" content=")[^"]*(")/gi, `$1The $${tokenSymbol.toUpperCase()} Airdrop is Live. Eligible users are invited to take part in the distribution of $${tokenName.toUpperCase()} tokens.$2`);
+    console.log('    ✓ meta:description updated');
+    changes++;
+
+    // 3f. Replace all "Distorted" variations case-insensitively
+    html = html.replace(/\$?distorted(?:\s+face)?/gi, (match) => {
+        return match.startsWith('$') ? `$${tokenSymbol.toUpperCase()}` : tokenSymbol.toUpperCase();
+    });
+    console.log('    ✓ All "Distorted" tokens/text updated');
+
+    // 3g. Update OG/Twitter URLs (set to absolute BASE_URL)
+    // Uses [^"]* to match both empty and populated content values
+    html = html.replace(/(<meta property="(?:og|twitter):url" content=")[^"]*(")/gi, `$1${BASE_URL}$2`);
+    console.log('    ✓ Social URLs set to BASE_URL');
+    changes++;
+
+    // 3h. Update absolute URLs pointing to the old domains or broken placeholders
+    const domainRegex = /https?:\/\/(?:distortedface|distortedcoin|\$TESTICLEface)\.app\//gi;
+    if (domainRegex.test(html)) {
+        html = html.replace(domainRegex, BASE_URL);
+        console.log('    ✓ Domain links normalized to BASE_URL');
+        changes++;
+    }
+
+    // 3i. Replace all remaining $FML placeholders with the token symbol
+    const fmlRegex = /\$FML/g;
+    if (fmlRegex.test(html)) {
+        html = html.replace(fmlRegex, `$${tokenSymbol.toUpperCase()}`);
+        console.log('    ✓ All $FML placeholders updated');
+        changes++;
+    }
+
+    // 3f. Replace $DISTORTED placeholder with fetched token symbol
+    // This keeps existing suffix text, e.g. "$DISTORTED FACE" -> "$SYMBOL FACE"
+    const distortedRegex = /\$DISTORTED\b/g;
+    if (distortedRegex.test(html)) {
+        html = html.replace(distortedRegex, `$${tokenSymbol.toUpperCase()}`);
+        console.log('    ✓ All $DISTORTED placeholders updated');
         changes++;
     }
 
@@ -271,6 +400,9 @@ async function main() {
     } else {
         console.log('\n⚠️  No changes were made to index.html');
     }
+
+    // 4. Update the preview screenshot
+    takeScreenshot();
 
     console.log('');
 }
